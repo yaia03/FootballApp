@@ -14,8 +14,8 @@ class Repository {
         return RetrofitInstance.api.getCompetitions()
     }
 
-    suspend fun getStandings(token: String, id: Int): Response<ResponseStandings> {
-        Log.d("Response", RetrofitInstance.api.getStandings(token, id).toString())
-        return RetrofitInstance.api.getStandings(token, id)
+    suspend fun getStandings(id: Int): Response<ResponseStandings> {
+        Log.d("Response", RetrofitInstance.api.getStandings(id).toString())
+        return RetrofitInstance.api.getStandings(id)
     }
 }

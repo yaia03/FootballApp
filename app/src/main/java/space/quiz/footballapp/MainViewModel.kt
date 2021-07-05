@@ -22,9 +22,9 @@ class MainViewModel(private val repository: Repository): ViewModel() {
         }
     }
 
-    fun getStandings(token: String, id: Int){
+    fun getStandings(id: Int){
         viewModelScope.launch {
-            val response = repository.getStandings(token, id)
+            val response = repository.getStandings(id)
             standingResponse.value = response
         }
     }

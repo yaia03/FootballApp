@@ -11,11 +11,20 @@ import space.quiz.footballapp.api.SimpleApi
 object RetrofitInstance {
 
     const val BASE_URL = "http://api.football-data.org"
+    const val TOKEN = "d2ecf60e45614a9682ff4200649790c6"
 
     private val retrofit by lazy {
 
         Retrofit.Builder()
                 .baseUrl(BASE_URL)
+                .client(OkHttpClient.Builder().addInterceptor { chain ->
+                    val request = chain
+                        .request()
+                        .newBuilder()
+                        .addHeader("X-Auth-Token", TOKEN)
+                        .build()
+                    chain.proceed(request)
+                }.build())
                 .addConverterFactory(GsonConverterFactory.create())
                 .build()
     }
@@ -24,17 +33,4 @@ object RetrofitInstance {
         retrofit.create(SimpleApi::class.java)
     }
 
-//    private val httpAuthClient: OkHttpClient
-//        get() {
-//            val okHttpClient = OkHttpClient().newBuilder().addInterceptor { chain ->
-//                val originalRequest = chain.request()
-//
-//                val builder = originalRequest.newBuilder().header("AUTH_TOKEN", "d2ecf60e45614a9682ff4200649790c6")
-//
-//                val newRequest = builder.build()
-//                chain.proceed(newRequest)
-//            }.build()
-//
-//            return okHttpClient
-//        }
 }
