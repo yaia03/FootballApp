@@ -13,7 +13,7 @@ import space.quiz.footballapp.Model.Competition
 import space.quiz.footballapp.R
 
 class CompetitionAdapter(private var competitionList: List<Competition>, private val onClickListener: CompetitionOnClickListener,
-                         val context: Context
+                         val context: Context?
 ): RecyclerView.Adapter<CompetitionAdapter.CompetitionHolder>() {
 
     inner class CompetitionHolder(view: View): RecyclerView.ViewHolder(view){
@@ -34,20 +34,21 @@ class CompetitionAdapter(private var competitionList: List<Competition>, private
         holder.nameText.text = competition.name
         holder.startDateTextView.text = competition.currentSeason?.startDate
         holder.endDateTextView.text = competition.currentSeason?.endDate
-        if (competition.emblemUrl != null) {
-            val uri = Uri.parse(competition.emblemUrl)
-            GlideToVectorYou.init()
-                .with(context)
-                .load(uri, holder.emblemImage)
+        when {
+            competition.emblemUrl != null -> {
+                val uri = Uri.parse(competition.emblemUrl)
+                GlideToVectorYou.init()
+                        .with(context)
+                        .load(uri, holder.emblemImage)
+            }
+            competition.area.ensignUrl != null -> {
+                val uri = Uri.parse(competition.area.ensignUrl)
+                GlideToVectorYou.init()
+                        .with(context)
+                        .load(uri, holder.emblemImage)
+            }
+            else -> holder.emblemImage.setImageResource(R.drawable.ic_soccer)
         }
-        else if(competition.area.ensignUrl != null){
-            val uri = Uri.parse(competition.area.ensignUrl)
-            GlideToVectorYou.init()
-                    .with(context)
-                    .load(uri, holder.emblemImage)
-        }
-        else
-            holder.emblemImage.setImageResource(R.drawable.ic_soccer)
 
         holder.itemView.setOnClickListener {
             onClickListener.onClicked(competition)

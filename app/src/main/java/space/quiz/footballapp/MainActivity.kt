@@ -7,7 +7,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), Communicator {
 
     private lateinit var mainViewPager: ViewPager
 
@@ -16,16 +16,23 @@ class MainActivity : AppCompatActivity() {
         setContentView(R.layout.activity_main)
 
         init()
-        mainViewPager.adapter = ViewPagerAdapter(supportFragmentManager)
     }
 
     private fun init(){
         mainViewPager = findViewById(R.id.main_viewpager)
+        val mainFragment = MainFragment()
+        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, mainFragment).commit()
     }
 
-    inner class ViewPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm){
-        override fun getCount(): Int { return 1 }
+    override fun passId(id: Int) {
+        val bundle = Bundle()
+        bundle.putInt("id", id)
 
-        override fun getItem(position: Int): Fragment { return MainFragment() }
+        val transaction = this.supportFragmentManager.beginTransaction()
+        val secondFragment = SecondFragment()
+        secondFragment.arguments = bundle
+
+        transaction.replace(R.id.fragment_container, secondFragment).commit()
     }
+
 }

@@ -2,4 +2,11 @@
     <string name="app_name">FootballApp</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="table_team">Команда</string>
+    <string name="table_position">Место</string>
+    <string name="table_games">И</string>
+    <string name="table_win">В</string>
+    <string name="table_lose">П</string>
+    <string name="table_draw">Н</string>
+    <string name="table_points">О</string>
 </resources>

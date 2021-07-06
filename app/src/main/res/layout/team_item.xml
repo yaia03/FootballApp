@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:paddingTop="15dp"
+    android:paddingBottom="15dp">
+
+    <TextView
+        android:id="@+id/rv_position"
+        android:layout_width="42dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/rv_team"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/rv_position"
+        app:layout_constraintEnd_toStartOf="@+id/rv_played_games"
+        android:text="@string/table_team"
+        android:textColor="@color/black"
+        android:textStyle="bold"
+        android:gravity="center"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/rv_played_games"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rv_win"
+        android:text="@string/table_games"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/rv_win"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rv_draw"
+        android:text="@string/table_win"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/rv_draw"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rv_lose"
+        android:text="@string/table_draw"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/rv_lose"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/rv_points"
+        android:text="@string/table_lose"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/rv_points"
+        android:layout_width="30dp"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:text="@string/table_points"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:gravity="center"
+        ></TextView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
