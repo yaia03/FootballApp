@@ -1,0 +1,278 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    tools:context=".MatchInfoFragment">
+
+    <TextView
+        android:id="@+id/match_info_home_team_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/match_info_home_team"
+        app:layout_constraintEnd_toEndOf="@+id/match_info_home_team"
+        android:text="@string/home_team"
+        android:layout_marginTop="10dp"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/match_info_away_team_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toStartOf="@+id/match_info_away_team"
+        app:layout_constraintEnd_toEndOf="@+id/match_info_away_team"
+        android:text="@string/away_team"
+        android:layout_marginTop="10dp"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/match_info_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/match_info_home_team_title"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_marginTop="5dp"
+        android:textSize="25sp"
+        android:textColor="@color/black"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/match_info_status"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/match_info_score"
+        app:layout_constraintStart_toStartOf="@+id/match_info_score"
+        app:layout_constraintEnd_toEndOf="@+id/match_info_score"
+        android:layout_marginTop="5dp"
+        />
+
+    <TextView
+        android:id="@+id/match_info_home_team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/match_info_score"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintTop_toTopOf="@+id/match_info_score"
+        app:layout_constraintBottom_toBottomOf="@+id/match_info_score"
+
+        ></TextView>
+
+    <TextView
+        android:id="@+id/match_info_away_team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        app:layout_constraintStart_toEndOf="@id/match_info_score"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:textColor="@color/black"
+        android:textSize="25sp"
+        app:layout_constraintTop_toTopOf="@+id/match_info_score"
+        app:layout_constraintBottom_toBottomOf="@+id/match_info_score"
+
+        ></TextView>
+
+    <TextView
+        android:id="@+id/match_info_date"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/match_info_status"
+        app:layout_constraintStart_toStartOf="@+id/match_info_score"
+        app:layout_constraintEnd_toEndOf="@+id/match_info_score"
+        android:layout_marginTop="3dp"
+        />
+
+    <TextView
+        android:id="@+id/match_info_competition"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/match_info_date"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:text="@string/competition"
+        />
+
+    <TextView
+        android:id="@+id/match_info_competition_name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/match_info_competition"
+        app:layout_constraintStart_toStartOf="@id/match_info_competition"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        />
+
+    <ImageView
+        android:id="@+id/match_info_competition_emblem"
+        android:layout_width="35dp"
+        android:layout_height="35dp"
+        app:layout_constraintTop_toTopOf="@id/match_info_competition_name"
+        app:layout_constraintBottom_toBottomOf="@+id/match_info_competition_name"
+        app:layout_constraintStart_toEndOf="@+id/match_info_competition_name"
+        android:layout_marginStart="10dp"
+        />
+
+    <TextView
+        android:id="@+id/match_info_stage_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/match_info_competition_emblem"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:text="@string/stage"
+        />
+
+    <TextView
+        android:id="@+id/match_info_stage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/match_info_stage_title"
+        app:layout_constraintStart_toStartOf="@id/match_info_stage_title"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        />
+
+    <TextView
+        android:id="@+id/match_info_score_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/match_info_stage"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:text="@string/score"
+        />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/match_info_score_const_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@id/match_info_score_title"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:id="@+id/match_info_full_time_score_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/match_info_halftime_score_title"
+            android:text="@string/full_time_score"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/match_info_halftime_score_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@id/match_info_full_time_score_title"
+            app:layout_constraintEnd_toStartOf="@+id/match_info_extra_time_score_title"
+            android:text="@string/halftime_score"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/match_info_extra_time_score_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/match_info_halftime_score_title"
+            app:layout_constraintEnd_toStartOf="@+id/match_info_penalties_score_title"
+            android:text="@string/extra_time_score"
+            android:textColor="@color/black"
+            />
+        <TextView
+            android:id="@+id/match_info_penalties_score_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/match_info_extra_time_score_title"
+            app:layout_constraintEnd_toEndOf="parent"
+            android:text="@string/penalties_score"
+            android:textColor="@color/black"
+            />
+
+        <TextView
+            android:id="@+id/match_info_full_time_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/match_info_full_time_score_title"
+            app:layout_constraintStart_toStartOf="@+id/match_info_full_time_score_title"
+            app:layout_constraintEnd_toEndOf="@id/match_info_full_time_score_title"
+            android:layout_marginTop="5dp"
+            android:text=""
+            />
+
+        <TextView
+            android:id="@+id/match_info_halftime_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/match_info_halftime_score_title"
+            app:layout_constraintStart_toStartOf="@+id/match_info_halftime_score_title"
+            app:layout_constraintEnd_toEndOf="@id/match_info_halftime_score_title"
+            android:layout_marginTop="5dp"
+            android:text=""
+            />
+
+        <TextView
+            android:id="@+id/match_info_extra_time_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/match_info_extra_time_score_title"
+            app:layout_constraintStart_toStartOf="@+id/match_info_extra_time_score_title"
+            app:layout_constraintEnd_toEndOf="@id/match_info_extra_time_score_title"
+            android:layout_marginTop="5dp"
+            android:text=""
+            />
+
+        <TextView
+            android:id="@+id/match_info_penalties_score"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@+id/match_info_penalties_score_title"
+            app:layout_constraintStart_toStartOf="@+id/match_info_penalties_score_title"
+            app:layout_constraintEnd_toEndOf="@id/match_info_penalties_score_title"
+            android:layout_marginTop="5dp"
+            android:text=""
+            />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/match_info_referees_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/match_info_score_const_layout"
+        app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginTop="10dp"
+        android:layout_marginStart="10dp"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        android:text="@string/referees"
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/match_info_referees_rv"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toBottomOf="@+id/match_info_referees_title"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="10dp"
+        />
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

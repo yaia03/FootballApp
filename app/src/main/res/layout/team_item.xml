@@ -15,14 +15,23 @@
         android:textStyle="bold"
         android:textColor="@color/black"
         android:gravity="center"
+        android:text="@string/table_position"
         ></TextView>
+
+    <ImageView
+        android:id="@+id/rv_emblem"
+        android:layout_width="16dp"
+        android:layout_height="16dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintStart_toEndOf="@id/rv_position"
+        ></ImageView>
 
     <TextView
         android:id="@+id/rv_team"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/rv_position"
+        app:layout_constraintStart_toEndOf="@+id/rv_emblem"
         app:layout_constraintEnd_toStartOf="@+id/rv_played_games"
         android:text="@string/table_team"
         android:textColor="@color/black"

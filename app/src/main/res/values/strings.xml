@@ -9,4 +9,19 @@
     <string name="table_lose">П</string>
     <string name="table_draw">Н</string>
     <string name="table_points">О</string>
+    <string name="main_menu_search">Поиск</string>
+    <string name="pager_title_info">Информация</string>
+    <string name="pager_title_match">Матчи</string>
+    <string name="pager_title_squad">Состав</string>
+    <string name="away_team">Гостевая команда</string>
+    <string name="home_team">Домашняя команда</string>
+    <string name="competition">Соревнование</string>
+    <string name="stage">Этап</string>
+    <string name="score">Очки</string>
+    <string name="full_time_score">Все время</string>
+    <string name="extra_time_score">Доп. время</string>
+    <string name="halftime_score">До перерыва</string>
+    <string name="penalties_score">Пенальти</string>
+    <string name="referees">Судьи</string>
+
 </resources>

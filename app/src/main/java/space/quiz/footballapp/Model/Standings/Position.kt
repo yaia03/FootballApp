@@ -13,4 +13,8 @@ data class Position(
         val goalsFor: Int?,
         val goalsAgainst: Int?,
         val goalDifference: Int?
-)
+): Comparable<Position> {
+    override fun compareTo(other: Position): Int {
+        TODO("Not yet implemented")
+    }
+}

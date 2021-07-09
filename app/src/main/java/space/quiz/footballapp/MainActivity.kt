@@ -2,14 +2,11 @@ package space.quiz.footballapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.view.Menu
 import androidx.fragment.app.Fragment
-import androidx.fragment.app.FragmentManager
-import androidx.fragment.app.FragmentPagerAdapter
-import androidx.viewpager.widget.ViewPager
 
 class MainActivity : AppCompatActivity(), Communicator {
 
-    private lateinit var mainViewPager: ViewPager
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,20 +16,31 @@ class MainActivity : AppCompatActivity(), Communicator {
     }
 
     private fun init(){
-        mainViewPager = findViewById(R.id.main_viewpager)
         val mainFragment = MainFragment()
         supportFragmentManager.beginTransaction().replace(R.id.fragment_container, mainFragment).commit()
     }
 
-    override fun passId(id: Int) {
+
+    override fun passId(id: Int?, fragment: Fragment, key: String) {
         val bundle = Bundle()
-        bundle.putInt("id", id)
+        if (id != null) {
+            bundle.putInt(key, id)
+        }
 
+        fragment.arguments = bundle
+    }
+
+
+    override fun openFragment(fragment: Fragment) {
         val transaction = this.supportFragmentManager.beginTransaction()
-        val secondFragment = SecondFragment()
-        secondFragment.arguments = bundle
+        transaction.replace(R.id.fragment_container, fragment).commit()
+    }
 
-        transaction.replace(R.id.fragment_container, secondFragment).commit()
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.main_menu, menu)
+
+        return super.onCreateOptionsMenu(menu)
     }
 
 }

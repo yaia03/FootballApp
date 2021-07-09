@@ -2,10 +2,12 @@ package space.quiz.footballapp
 
 import android.os.Bundle
 import android.util.Log
+import android.view.*
+import android.widget.EditText
+import android.widget.ImageButton
+import android.widget.TextView
+import androidx.core.widget.addTextChangedListener
 import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -16,6 +18,7 @@ import space.quiz.footballapp.Model.Competition
 import space.quiz.footballapp.Repository.Repository
 import space.quiz.retrofit2.MainViewModel
 import space.quiz.retrofit2.MainViewModelFactory
+import java.util.*
 
 
 class MainFragment : Fragment() {
@@ -24,6 +27,13 @@ class MainFragment : Fragment() {
     private lateinit var root:View
     private lateinit var viewModel: MainViewModel
     private lateinit var communicator: Communicator
+    private lateinit var listComp: ArrayList<Competition>
+    private lateinit var btnSearch: ImageButton
+    private lateinit var btnClose: ImageButton
+    private lateinit var editSearch: EditText
+    private lateinit var appName: TextView
+    private lateinit var adapter: CompetitionAdapter
+
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -36,34 +46,73 @@ class MainFragment : Fragment() {
         val repository = Repository()
         val viewModelFactory = MainViewModelFactory(repository)
 
-
         viewModel = ViewModelProvider(this, viewModelFactory).get(MainViewModel::class.java)
         viewModel.getCompetition()
         viewModel.myResponse.observe(viewLifecycleOwner, Observer { response ->
             if (response.isSuccessful) {
                 Log.d("Response", response.body()!!.competitions.toString())
-                createRV(response.body()?.competitions!!)
+                listComp = response.body()?.competitions!! as ArrayList<Competition>
+                createRV(listComp)
             }
             else {
                 Log.d("Response", response.errorBody().toString())
             }
         })
 
+        btnSearch.setOnClickListener(View.OnClickListener {
+            appName.visibility = View.INVISIBLE
+            editSearch.visibility = View.VISIBLE
+            btnSearch.visibility = View.INVISIBLE
+            btnClose.visibility = View.VISIBLE
+        })
+
+        btnClose.setOnClickListener(View.OnClickListener {
+            appName.visibility = View.VISIBLE
+            editSearch.visibility = View.INVISIBLE
+            btnSearch.visibility = View.VISIBLE
+            btnClose.visibility = View.INVISIBLE
+            adapter.filterList(listComp)
+        })
+
         return root
     }
 
+
+
     private fun init(){
         competitionRV = root.findViewById(R.id.main_fragment_rv)
+        listComp = arrayListOf<Competition>()
+        btnSearch = root.findViewById(R.id.main_fragment_btn_search)
+        editSearch = root.findViewById(R.id.main_fragment_edit_text_search)
+        btnClose = root.findViewById(R.id.main_fragment_btn_close)
+        appName= root.findViewById(R.id.main_fragment_app_name)
+        editSearch.addTextChangedListener {
+            filter(it.toString())
+        }
+
     }
 
     private fun createRV(list: List<Competition>){
-        val adapter = CompetitionAdapter(list, object : CompetitionOnClickListener{
+        adapter = CompetitionAdapter(list, object : CompetitionOnClickListener{
             override fun onClicked(competition: Competition) {
-                communicator.passId(competition.id)
+                val fragment = SecondFragment()
+                communicator.passId(competition.id, fragment, "compId")
+                communicator.openFragment(fragment)
             }
         }, context)
         competitionRV.layoutManager = LinearLayoutManager(activity)
         competitionRV.adapter = adapter
     }
 
+    private fun filter(text: String){
+        val filterList = arrayListOf<Competition>()
+
+        for (comp in listComp){
+            if (comp.name!!.toLowerCase().contains(text.toLowerCase())){
+                filterList.add(comp)
+            }
+        }
+        adapter.filterList(filterList)
+    }
 }
+

@@ -41,8 +41,8 @@ class CompetitionAdapter(private var competitionList: List<Competition>, private
                         .with(context)
                         .load(uri, holder.emblemImage)
             }
-            competition.area.ensignUrl != null -> {
-                val uri = Uri.parse(competition.area.ensignUrl)
+            competition.area!!.ensignUrl != null -> {
+                val uri = Uri.parse(competition.area!!.ensignUrl)
                 GlideToVectorYou.init()
                         .with(context)
                         .load(uri, holder.emblemImage)
@@ -57,5 +57,10 @@ class CompetitionAdapter(private var competitionList: List<Competition>, private
 
     override fun getItemCount(): Int {
         return competitionList.size
+    }
+
+    fun filterList(filterList: ArrayList<Competition>){
+        competitionList = filterList
+        notifyDataSetChanged()
     }
 }

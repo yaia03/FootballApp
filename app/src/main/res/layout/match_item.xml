@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:padding="15dp">
+
+    <TextView
+        android:id="@+id/match_item_score"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:textSize="30sp"
+        android:textColor="@color/black"
+        android:text="1:0"
+        />
+
+    <TextView
+        android:id="@+id/match_item_home_team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/match_item_score"
+        app:layout_constraintBottom_toBottomOf="@+id/match_item_score"
+        app:layout_constraintEnd_toStartOf="@+id/match_item_score"
+        app:layout_constraintStart_toStartOf="parent"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:text="Италия"
+        ></TextView>
+
+    <TextView
+        android:id="@+id/match_item_away_team"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toTopOf="@+id/match_item_score"
+        app:layout_constraintBottom_toBottomOf="@+id/match_item_score"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/match_item_score"
+        android:textColor="@color/black"
+        android:textSize="30sp"
+        android:text="Испания"
+        ></TextView>
+
+
+
+
+</androidx.constraintlayout.widget.ConstraintLayout>

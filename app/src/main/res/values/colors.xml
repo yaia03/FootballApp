@@ -8,4 +8,6 @@
     <color name="black">#FF000000</color>
     <color name="white">#FFFFFFFF</color>
     <color name="grey">#7e7f78</color>
+    <color name="toolbar">#e7f6ef</color>
+    <color name="blue">#2a8ee7</color>
 </resources>
