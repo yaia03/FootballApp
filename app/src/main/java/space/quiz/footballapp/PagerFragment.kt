@@ -1,11 +1,13 @@
 package space.quiz.footballapp
 
+import android.annotation.SuppressLint
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
+import androidx.activity.OnBackPressedCallback
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import androidx.viewpager.widget.ViewPager
@@ -20,18 +22,15 @@ class PagerFragment : Fragment() {
     private var squadFragment = SquadFragment()
     private lateinit var communicator: Communicator
     private lateinit var back: ImageView
+    private var compId = 0
 
+    @SuppressLint("FragmentBackPressedCallback")
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         val view = inflater.inflate(R.layout.fragment_pager, container, false)
         back = view.findViewById(R.id.pager_fragment_back)
-        back.setOnClickListener(View.OnClickListener {
-            val fragment = SecondFragment()
-            val teamId = arguments?.getInt("compId")
-            communicator.passId(teamId, fragment, "compId")
-            communicator.openFragment(fragment)
-        })
+        compId = arguments?.getInt("compId")!!
         communicator = activity as Communicator
         communicator.passId(arguments?.getInt("teamId")!!, thirdFragment, "id")
         communicator.passId(arguments?.getInt("teamId")!!, matchFragment, "id")
@@ -43,10 +42,10 @@ class PagerFragment : Fragment() {
         viewPager.adapter = ViewPagerAdapter(childFragmentManager)
         tabs.setupWithViewPager(viewPager)
 
-
-
         return view
     }
+
+
 
     inner class ViewPagerAdapter(fm: FragmentManager): FragmentPagerAdapter(fm){
         override fun getCount(): Int {

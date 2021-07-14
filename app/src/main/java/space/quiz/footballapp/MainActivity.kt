@@ -7,17 +7,19 @@ import androidx.fragment.app.Fragment
 
 class MainActivity : AppCompatActivity(), Communicator {
 
+    var id = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        init()
-    }
-
-    private fun init(){
-        val mainFragment = MainFragment()
-        supportFragmentManager.beginTransaction().replace(R.id.fragment_container, mainFragment).commit()
+        if (savedInstanceState == null){
+            val mainFragment = MainFragment()
+            supportFragmentManager
+                    .beginTransaction()
+                    .add(R.id.fragment_container, mainFragment)
+                    .commit()
+        }
     }
 
 
@@ -33,7 +35,9 @@ class MainActivity : AppCompatActivity(), Communicator {
 
     override fun openFragment(fragment: Fragment) {
         val transaction = this.supportFragmentManager.beginTransaction()
-        transaction.replace(R.id.fragment_container, fragment).commit()
+        transaction.replace(R.id.fragment_container, fragment)
+            .addToBackStack("bs")
+            .commit()
     }
 
 
@@ -42,5 +46,4 @@ class MainActivity : AppCompatActivity(), Communicator {
 
         return super.onCreateOptionsMenu(menu)
     }
-
 }

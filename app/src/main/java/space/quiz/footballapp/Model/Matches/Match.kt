@@ -1,6 +1,6 @@
 package space.quiz.footballapp.Model.Matches
 
-import space.quiz.footballapp.EnumsStatusMatch
+
 import space.quiz.footballapp.Model.Competition
 import space.quiz.footballapp.Model.Player
 import space.quiz.footballapp.Model.Season

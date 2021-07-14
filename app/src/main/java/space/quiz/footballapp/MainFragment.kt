@@ -16,8 +16,6 @@ import space.quiz.footballapp.Adapter.CompetitionAdapter
 import space.quiz.footballapp.Adapter.CompetitionOnClickListener
 import space.quiz.footballapp.Model.Competition
 import space.quiz.footballapp.Repository.Repository
-import space.quiz.retrofit2.MainViewModel
-import space.quiz.retrofit2.MainViewModelFactory
 import java.util.*
 
 
@@ -54,9 +52,6 @@ class MainFragment : Fragment() {
                 listComp = response.body()?.competitions!! as ArrayList<Competition>
                 createRV(listComp)
             }
-            else {
-                Log.d("Response", response.errorBody().toString())
-            }
         })
 
         btnSearch.setOnClickListener(View.OnClickListener {
@@ -74,7 +69,15 @@ class MainFragment : Fragment() {
             adapter.filterList(listComp)
         })
 
+
         return root
+    }
+
+    override fun onResume() {
+        super.onResume()
+        editSearch.addTextChangedListener {
+            filter(it.toString())
+        }
     }
 
 
@@ -86,9 +89,6 @@ class MainFragment : Fragment() {
         editSearch = root.findViewById(R.id.main_fragment_edit_text_search)
         btnClose = root.findViewById(R.id.main_fragment_btn_close)
         appName= root.findViewById(R.id.main_fragment_app_name)
-        editSearch.addTextChangedListener {
-            filter(it.toString())
-        }
 
     }
 
@@ -96,8 +96,15 @@ class MainFragment : Fragment() {
         adapter = CompetitionAdapter(list, object : CompetitionOnClickListener{
             override fun onClicked(competition: Competition) {
                 val fragment = SecondFragment()
-                communicator.passId(competition.id, fragment, "compId")
-                communicator.openFragment(fragment)
+                val args = Bundle().apply {
+                    putInt("compId", competition.id)
+                }
+                fragment.arguments = args
+                parentFragmentManager
+                    .beginTransaction()
+                    .addToBackStack("bs")
+                    .replace(R.id.fragment_container, fragment)
+                    .commit()
             }
         }, context)
         competitionRV.layoutManager = LinearLayoutManager(activity)
@@ -115,4 +122,3 @@ class MainFragment : Fragment() {
         adapter.filterList(filterList)
     }
 }
-

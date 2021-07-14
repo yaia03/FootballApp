@@ -5,8 +5,8 @@ import androidx.lifecycle.ViewModelProvider
 import space.quiz.footballapp.Repository.Repository
 
 
-class MainViewModelFactory(private val repository: Repository): ViewModelProvider.Factory {
+class SecondViewModelFactory(private val repository: Repository): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
-        return MainViewModel(repository) as T
+        return SecondViewModel(repository) as T
     }
 }

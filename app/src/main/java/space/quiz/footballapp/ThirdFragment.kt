@@ -13,12 +13,9 @@ import android.widget.TextView
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import com.github.twocoffeesoneteam.glidetovectoryou.GlideToVectorYou
-import space.quiz.footballapp.Model.ResponseTeams
-import space.quiz.footballapp.Model.Standings.ResponseStandings
 import space.quiz.footballapp.Model.Team
 import space.quiz.footballapp.Repository.Repository
-import space.quiz.retrofit2.MainViewModel
-import space.quiz.retrofit2.MainViewModelFactory
+
 
 
 class ThirdFragment : Fragment() {
@@ -29,7 +26,7 @@ class ThirdFragment : Fragment() {
     private lateinit var phone: TextView
     private lateinit var address: TextView
     private lateinit var website: TextView
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: ThirdViewModel
 
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -38,9 +35,10 @@ class ThirdFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_third, container, false)
 
         val repository = Repository()
-        val viewModelFactory = MainViewModelFactory(repository)
+        val viewModelFactory = ThirdViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(MainViewModel::class.java)
+                .get(ThirdViewModel::class.java)
+
 
 //        readTeam(viewModel.teamId.value!!)
         name = view.findViewById(R.id.third_fragment_name)
@@ -56,7 +54,6 @@ class ThirdFragment : Fragment() {
             val intent = Intent(Intent.ACTION_VIEW, Uri.parse(website.text.toString()))
             startActivity(intent)
         })
-
 
         return view
     }

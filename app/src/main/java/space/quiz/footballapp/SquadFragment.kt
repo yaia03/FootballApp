@@ -18,13 +18,12 @@ import space.quiz.footballapp.Model.Player
 import space.quiz.footballapp.Model.Standings.Position
 import space.quiz.footballapp.Model.Team
 import space.quiz.footballapp.Repository.Repository
-import space.quiz.retrofit2.MainViewModel
-import space.quiz.retrofit2.MainViewModelFactory
+
 
 class SquadFragment : Fragment() {
 
     private lateinit var squadRV: RecyclerView
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: ThirdViewModel
 
 
     override fun onCreateView(
@@ -37,16 +36,16 @@ class SquadFragment : Fragment() {
         squadRV = view.findViewById(R.id.fragment_squad_rv)
 
         val repository = Repository()
-        val viewModelFactory = MainViewModelFactory(repository)
+        val viewModelFactory = ThirdViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(MainViewModel::class.java)
+                .get(ThirdViewModel::class.java)
 
         readTeam(arguments?.getInt("id")!!)
 
         return view
     }
 
-    fun readTeam(id: Int): Team? {
+    private fun readTeam(id: Int): Team? {
         var team: Team? = null
 
 
@@ -70,5 +69,4 @@ class SquadFragment : Fragment() {
         squadRV.layoutManager = LinearLayoutManager(activity)
         squadRV.adapter = adapter
     }
-
 }

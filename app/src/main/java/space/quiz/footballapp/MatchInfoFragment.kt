@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -19,8 +20,7 @@ import space.quiz.footballapp.Enums.StageEnums
 import space.quiz.footballapp.Model.Matches.Match
 import space.quiz.footballapp.Model.Player
 import space.quiz.footballapp.Repository.Repository
-import space.quiz.retrofit2.MainViewModel
-import space.quiz.retrofit2.MainViewModelFactory
+
 
 class MatchInfoFragment : Fragment() {
 
@@ -39,6 +39,7 @@ class MatchInfoFragment : Fragment() {
     private lateinit var competitionEmblem: ImageView
     private lateinit var refereesRV: RecyclerView
     private lateinit var viewModel: MainViewModel
+    private lateinit var communicator: Communicator
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -46,14 +47,18 @@ class MatchInfoFragment : Fragment() {
         root = inflater.inflate(R.layout.fragment_match_info, container, false)
 
         init()
+        communicator = activity as Communicator
 
-        val repository = Repository()
-        val viewModelFactory = MainViewModelFactory(repository)
-        viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(MainViewModel::class.java)
+//        val repository = Repository()
+//        val viewModelFactory = MainViewModelFactory(repository)
+//        viewModel = ViewModelProvider(this, viewModelFactory)
+//                .get(MainViewModel::class.java)
 
 //        readMatches(arguments?.getInt("id")!!, 3)
-        joinMatch(arguments?.getSerializable("match") as Match)
+        val match = arguments?.getSerializable("match") as Match
+        joinMatch(match)
+
+
 
 
         return root
@@ -77,15 +82,6 @@ class MatchInfoFragment : Fragment() {
         refereesRV = root.findViewById(R.id.match_info_referees_rv)
     }
 
-//    private fun readMatches(id: Int, position: Int){
-//        viewModel.getMatches(id)
-//        viewModel.matchesResponse.observe(viewLifecycleOwner, Observer { response ->
-//            if (response.isSuccessful){
-//                Log.d("Response", response.body()!!.toString())
-//                joinMatch(response.body()!!.matches[position])
-//            }
-//        })
-//    }
 
     private fun joinMatch(match: Match){
         homeTeamTxt.text = match.homeTeam?.name

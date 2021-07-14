@@ -8,6 +8,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.activity.OnBackPressedCallback
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -17,15 +18,14 @@ import space.quiz.footballapp.Adapter.TeamsAdapter
 import space.quiz.footballapp.Model.Standings.Position
 import space.quiz.footballapp.Model.Standings.ResponseStandings
 import space.quiz.footballapp.Repository.Repository
-import space.quiz.retrofit2.MainViewModel
-import space.quiz.retrofit2.MainViewModelFactory
 
-class SecondFragment : Fragment() {
+
+class SecondFragment() : Fragment() {
 
     private lateinit var teamsRv: RecyclerView
     private lateinit var communicator: Communicator
     private lateinit var back: ImageView
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: SecondViewModel
     private lateinit var winTxt: TextView
     private lateinit var loseTxt: TextView
     private lateinit var drawTxt: TextView
@@ -33,6 +33,7 @@ class SecondFragment : Fragment() {
     private lateinit var positionTxt: TextView
     private lateinit var adapter: TeamsAdapter
     private lateinit var positionList: ArrayList<Position>
+    private var idComp = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -43,7 +44,11 @@ class SecondFragment : Fragment() {
         back = view.findViewById(R.id.second_fragment_back)
         teamsRv = view.findViewById(R.id.second_fragment_rv)
         communicator = activity as Communicator
-        readTeams(arguments?.getInt("compId")!!)
+//        idComp = arguments?.getInt("compId")!!
+
+        idComp = arguments?.getInt("compId")!!
+
+        readTeams(idComp)
 
         back.setOnClickListener(View.OnClickListener {
             val fragment = MainFragment()
@@ -75,20 +80,38 @@ class SecondFragment : Fragment() {
             adapter.sortPointsList()
         })
 
+//        requireActivity()
+//                .onBackPressedDispatcher
+//                .addCallback(viewLifecycleOwner, object : OnBackPressedCallback(true){
+//                    override fun handleOnBackPressed() {
+//                        val fragment = MainFragment()
+//                        communicator.openFragment(fragment)
+//                    }
+//                })
         return view
     }
+
+    override fun onResume() {
+        super.onResume()
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        super.onSaveInstanceState(outState)
+        outState.putInt("COMP_ID", idComp)
+    }
+
 
 
 
     private fun readTeams(id: Int): ResponseStandings? {
         var responseStandings: ResponseStandings? = null
         val repository = Repository()
-        val viewModelFactory = MainViewModelFactory(repository)
+        val viewModelFactory = SecondViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(MainViewModel::class.java)
+                .get(SecondViewModel::class.java)
 
         viewModel.getStandings(id)
-        viewModel.standingResponse.observe(viewLifecycleOwner, Observer { response ->
+        viewModel.myStandingResponse.observe(viewLifecycleOwner, Observer { response ->
             if (response.isSuccessful){
                 Log.d("Standings", response.body()!!.standings.toString())
                 positionList = (response.body()!!.standings[0].table as ArrayList<Position>?)!!
@@ -102,13 +125,19 @@ class SecondFragment : Fragment() {
         adapter = TeamsAdapter(list, object : TeamOnClickListener {
             override fun onClicked(position: Position) {
                 val pagerFragment = PagerFragment()
-                communicator.passId(position.team.id, pagerFragment, "teamId")
-//                communicator.passId(arguments!!.getInt("compId"), pagerFragment, "compId")
-                communicator.openFragment(pagerFragment)
+                val args = Bundle().apply {
+                    putInt("teamId", position.team.id)
+                }
+                pagerFragment.arguments = args
+
+                parentFragmentManager
+                        .beginTransaction()
+                        .addToBackStack("bs")
+                        .replace(R.id.fragment_container, pagerFragment)
+                        .commit()
             }
         }, context)
         teamsRv.layoutManager = LinearLayoutManager(activity)
         teamsRv.adapter = adapter
     }
-
 }

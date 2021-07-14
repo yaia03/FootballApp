@@ -18,15 +18,13 @@ import space.quiz.footballapp.Model.Competition
 import space.quiz.footballapp.Model.Matches.Match
 import space.quiz.footballapp.Model.Player
 import space.quiz.footballapp.Repository.Repository
-import space.quiz.retrofit2.MainViewModel
-import space.quiz.retrofit2.MainViewModelFactory
-import java.util.ArrayList
 
 class MatchFragment : Fragment() {
 
-    private lateinit var viewModel: MainViewModel
+    private lateinit var viewModel: MatchViewModel
     private lateinit var matchRV: RecyclerView
     private lateinit var communicator: Communicator
+    private var teamId = 0
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -39,11 +37,12 @@ class MatchFragment : Fragment() {
         communicator = activity as Communicator
 
         val repository = Repository()
-        val viewModelFactory = MainViewModelFactory(repository)
+        val viewModelFactory = MatchViewModelFactory(repository)
         viewModel = ViewModelProvider(this, viewModelFactory)
-                .get(MainViewModel::class.java)
+                .get(MatchViewModel::class.java)
 
-        readMatches(arguments?.getInt("id")!!)
+        teamId = arguments?.getInt("id")!!
+        readMatches(teamId)
 
         return view
     }
@@ -62,13 +61,19 @@ class MatchFragment : Fragment() {
    private fun createRV(list: List<Match>){
        val adapter = MatchAdapter(list, object : MatchOnClickListener {
            override fun onClicked(match: Match) {
-               val fragment = MatchInfoFragment()
-               val bundle = Bundle()
-               bundle.putSerializable("match", match)
-               fragment.arguments = bundle
-//               communicator.passId(position, fragment, "position")
-//               communicator.passId(arguments?.getInt("id"), fragment, "id")
-               communicator.openFragment(fragment)
+               val matchInfoFragment = MatchInfoFragment()
+               val bundle = Bundle().apply {
+                   putSerializable("match", match)
+//                   putInt("teamId", teamId)
+               }
+               matchInfoFragment.arguments = bundle
+               communicator.openFragment(matchInfoFragment)
+
+//               parentFragmentManager
+//                   .beginTransaction()
+//                   .addToBackStack("bs")
+//                   .replace(R.id.fragment_container, matchInfoFragment)
+//                   .commit()
            }
        })
        matchRV.layoutManager = LinearLayoutManager(activity)
